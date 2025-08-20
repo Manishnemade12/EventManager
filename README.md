@@ -134,7 +134,7 @@ graph LR
   
 **Clone Repository**
  ```bash
-https://github.com/Manishnemade12/EventManager.git
+https://github.com/Manishnemade12/QuantiLearn.git
 cd EventManager
 ```
 **Run Microservices**
