@@ -1,0 +1,65 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: API-GATEWAY-SERVICE
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false # turn off auto route generation
+          lower-case-service-id: true
+      routes:
+        - id: auth-service
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/auth-service/**
+
+        - id: lesson-service
+          uri: lb://LESSON-SERVICE
+          predicates:
+            - Path=/lesson-service/**
+          filters:
+            - AuthenticationFilter
+
+        - id: progress-service
+          uri: lb://PROGRESS-SERVICE
+          predicates:
+            - Path=/progress-service/**
+          filters:
+            - AuthenticationFilter
+
+        - id: notification-service
+          uri: lb://NOTIFICATION-SERVICE
+          predicates:
+            - Path=/notification-service/**
+          filters:
+            - AuthenticationFilter
+
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/**
+          filters:
+            - AuthenticationFilter
+
+springdoc:
+  swagger-ui:
+    persist-authorization: true
+    urls:
+      - name: auth-service
+        url: /auth-service/v3/api-docs
+      - name: lesson-service
+        url: /lesson-service/v3/api-docs
+      - name: notification-service
+        url: /notification-service/v3/api-docs
+      - name: progress-service
+        url: /progress-service/v3/api-docs
+      - name: user-service
+        url: /user-service/v3/api-docs
+
+security:
+  jwt:
+    secret-key: e1e449b7a458f9897493297f37ce375a36266642f9826cacb8feee73ef9d3b24
+    expiration-time: 3600000

@@ -1,0 +1,29 @@
+server:
+  port: 8090
+  servlet:
+    context-path: /auth-service
+openapi:
+  service:
+    title: Auth Service #title that you will want to display in the swagger ui
+    version: 1.0.0
+springdoc:
+  api-docs.path: /v3/api-docs
+  swagger-ui.path: /swagger-ui.html
+spring:
+  application:
+    name: auth-service
+  datasource:
+    hikari:
+      connectionTimeout: 20000 #default connection pool
+      maximumPoolSize: 5
+    url: jdbc:postgresql://localhost:5432/quantilearn #PostgreSQL
+    username: dev
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+security:
+  jwt:
+    secret-key: e1e449b7a458f9897493297f37ce375a36266642f9826cacb8feee73ef9d3b24
+    expiration-time: 3600000

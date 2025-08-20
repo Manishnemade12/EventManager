@@ -1,0 +1,120 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.quantilearn</groupId>  <!-- Organisation Name -->
+    <artifactId>quantilearn</artifactId> <!-- Root project Name -->
+    <version>1.0-SNAPSHOT</version> <!-- Project version -->
+    <packaging>pom</packaging> <!-- Telling maven that this is the parent project -->
+
+    <properties>
+        <java.version>21</java.version>
+        <spring-boot.version>3.4.7</spring-boot.version>
+        <spring-cloud.version>2024.0.1</spring-cloud.version>
+        <maven-plugin.version>3.11.0</maven-plugin.version>
+		<org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
+		<org.projectlombok.version>1.18.30</org.projectlombok.version>
+		<lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
+        <redis-cache.version>6.0.0</redis-cache.version>
+        <swagger.version>2.8.3</swagger.version>
+        <event-models.version>1.0-SNAPSHOT</event-models.version>
+        <shared-dtos.version>1.0-SNAPSHOT</shared-dtos.version>
+    </properties>
+
+    <modules> <!-- Child Projects -->
+        <module>services/service-discovery</module>
+        <module>common/event-models</module>
+        <module>common/shared-dtos</module>
+        <module>services/api-gateway</module>
+        <module>services/auth-service</module>
+        <module>services/user-service</module>
+        <module>services/progress-service</module>
+        <module>services/notification-service</module>
+        <module>services/lesson-service</module>
+    </modules>
+
+    <dependencyManagement> <!--Child won't get all the dependencies-->
+        <dependencies>
+            <dependency> <!--Spring boot-->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency> <!--Cloud for Service Discovery-->
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency> <!--Swagger-->
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <dependency> <!--Lombok-->
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${org.projectlombok.version}</version>
+                <optional>true</optional>
+            </dependency>
+            <dependency> <!--Map Struct for DTO-->
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${org.mapstruct.version}</version>
+            </dependency>
+            <dependency> <!--Common Modules-->
+                <groupId>com.quantilearn</groupId>
+                <artifactId>event-models</artifactId>
+                <version>${event-models.version}</version>
+            </dependency>
+            <dependency> <!--Common Modules-->
+                <groupId>com.quantilearn</groupId>
+                <artifactId>shared-dtos</artifactId>
+                <version>${shared-dtos.version}</version>
+            </dependency>
+            <dependency> <!--Redis Cache-->
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>${redis-cache.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-plugin.version}</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <annotationProcessorPaths>
+                            <path>
+                                <groupId>org.mapstruct</groupId>
+                                <artifactId>mapstruct-processor</artifactId>
+                                <version>${org.mapstruct.version}</version>
+                            </path>
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                                <version>${org.projectlombok.version}</version>
+                            </path>
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok-mapstruct-binding</artifactId>
+                                <version>${lombok-mapstruct-binding.version}</version>
+                            </path>
+                        </annotationProcessorPaths>
+                    </configuration>
+			    </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>

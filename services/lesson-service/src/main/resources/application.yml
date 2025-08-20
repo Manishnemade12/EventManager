@@ -1,0 +1,35 @@
+server:
+  port: 8094
+  servlet:
+    context-path: /lesson-service
+openapi:
+  service:
+    title: Lesson Service #title that you will want to display in the swagger ui
+    version: 1.0.0
+springdoc:
+  api-docs:
+    path: /v3/api-docs #these urls will used to load the swagger ui of this service by the api gateway
+  swagger-ui:
+    path: /swagger-ui.html
+spring:
+  application:
+    name: lesson-service
+  datasource:
+    hikari:
+      connectionTimeout: 20000 #default connection pool
+      maximumPoolSize: 5
+    url: jdbc:postgresql://localhost:5432/quantilearn #PostgreSQL
+    username: dev
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+  ai: # ai config
+    chat:
+      client:
+        enabled: false
+    openai:
+      api-key: ${OPENAI_KEY}
+      chat:
+        options:
+          model: gpt-4o

@@ -1,0 +1,52 @@
+server:
+  port: 8093
+  servlet:
+    context-path: /notification-service
+
+openapi:
+  service:
+    title: Notification Service #title that you will want to display in the swagger ui
+    version: 1.0.0
+springdoc:
+  api-docs:
+    path: /v3/api-docs #these urls will used to load the swagger ui of this service by the api gateway
+  swagger-ui:
+    path: /swagger-ui.html
+
+spring:
+  application:
+    name: notification-service
+  datasource:
+    hikari:
+      connectionTimeout: 20000 #default connection pool
+      maximumPoolSize: 5
+    url: jdbc:postgresql://localhost:5432/quantilearn #PostgreSQL
+    username: dev
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: com.quantilearn.eventmodels
+  mail:
+    host: smtp.mailtrap.io
+    port: 2525
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+email:
+  token: 5a36572751d3ff49aace384ce015e71f
+  sender: sanjay@demomailtrap.co
