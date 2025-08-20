@@ -163,7 +163,3 @@ http://localhost:8080/api/{service}/...
 
 ## 📜 License
 This project is licensed under the MIT License.
-
-## 🙋‍♂️ Author
-Sanjay Sakthivel
-Feel free to raise issues or contribute to this project on GitHub.
